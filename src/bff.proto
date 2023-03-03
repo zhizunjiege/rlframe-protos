@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package game.bff;
+
+import "types.proto";
+import "agent.proto";
+import "simenv.proto";
+
+service BFF {
+  // reset bff server
+  rpc ResetServer(types.CommonRequest) returns (types.CommonResponse);
+
+  // register services
+  rpc RegisterService(ServiceInfoList) returns (ServiceIdList);
+  // unregister services
+  rpc UnRegisterService(ServiceIdList) returns (types.CommonResponse);
+
+  // get services info
+  rpc GetServiceInfo(ServiceIdList) returns (ServiceInfoMap);
+  // set services info
+  rpc SetServiceInfo(ServiceInfoMap) returns (types.CommonResponse);
+
+  // get route config
+  rpc GetRouteConfig(types.CommonRequest) returns (RouteConfig);
+  // set route config
+  rpc SetRouteConfig(RouteConfig) returns (types.CommonResponse);
+
+  // reset simenv/agent services state
+  rpc ResetService(ServiceIdList) returns (types.CommonResponse);
+  // start simenv/agent services state
+  rpc QueryService(ServiceIdList) returns (ServiceStateMap);
+
+  // get simenv configs
+  rpc GetSimenvConfig(ServiceIdList) returns (SimenvConfigMap);
+  // set simenv configs
+  rpc SetSimenvConfig(SimenvConfigMap) returns (types.CommonResponse);
+
+  // control simenv
+  rpc SimControl(SimCmdMap) returns (types.CommonResponse);
+
+  // get simenv info
+  rpc SimMonitor(ServiceIdList) returns (SimInfoMap);
+
+  // get agent configs
+  rpc GetAgentConfig(ServiceIdList) returns (AgentConfigMap);
+  // set agent configs
+  rpc SetAgentConfig(AgentConfigMap) returns (types.CommonResponse);
+
+  // get agent mode
+  rpc GetAgentMode(ServiceIdList) returns (AgentModeMap);
+  // set agent mode
+  rpc SetAgentMode(AgentModeMap) returns (types.CommonResponse);
+
+  // get model weights
+  rpc GetModelWeights(ServiceIdList) returns (ModelWeightsMap);
+  // set model weights
+  rpc SetModelWeights(ModelWeightsMap) returns (types.CommonResponse);
+
+  // get model buffer
+  rpc GetModelBuffer(ServiceIdList) returns (ModelBufferMap);
+  // set model buffer
+  rpc SetModelBuffer(ModelBufferMap) returns (types.CommonResponse);
+
+  // get model status
+  rpc GetModelStatus(ServiceIdList) returns (ModelStatusMap);
+  // set model status
+  rpc SetModelStatus(ModelStatusMap) returns (types.CommonResponse);
+
+  // any rpc call
+  rpc Call(CallDataMap) returns (CallDataMap);
+}
+
+message ServiceInfo {
+  string type = 1;  // type of service, predefine: simenv/agent
+  string name = 2;
+  string ip = 3;
+  uint32 port = 4;
+  string desc = 5;
+}
+message ServiceIdList {
+  repeated string ids = 1;  // id list of services
+}
+message ServiceInfoList {
+  repeated ServiceInfo services = 1;  // info list of services
+}
+message ServiceInfoMap {
+  map<string, ServiceInfo> services = 1;  // <service id, service info>
+}
+
+message RouteConfig {
+  message Config {
+    repeated string models = 1;  // name list of models
+  }
+  message Route {
+    map<string, Config> configs = 1;  // <agent id, config>
+  }
+  map<string, Route> routes = 1;  // <simenv id, route>
+}
+
+message ServiceStateMap {
+  map<string, types.ServiceState> states = 1;  // <service id, service state>
+}
+
+message SimenvConfigMap {
+  map<string, simenv.SimenvConfig> configs = 1;  // <simenv id, simenv config>
+}
+message SimCmdMap {
+  map<string, simenv.SimCmd> cmds = 1;  // <simenv id, simenv cmd>
+}
+message SimInfoMap {
+  map<string, simenv.SimInfo> infos = 1;  // <simenv id, simenv info>
+}
+
+message AgentConfigMap {
+  map<string, agent.AgentConfig> configs = 1;  // <agent id, agent config>
+}
+message AgentModeMap {
+  map<string, agent.AgentMode> modes = 1;  // <agent id, agent mode>
+}
+message ModelWeightsMap {
+  map<string, agent.ModelWeights> weights = 1;  // <agent id, model weights>
+}
+message ModelBufferMap {
+  map<string, agent.ModelBuffer> buffers = 1;  // <agent id, model buffer>
+}
+message ModelStatusMap {
+  map<string, agent.ModelStatus> status = 1;  // <agent id, model status>
+}
+
+message CallDataMap {
+  map<string, types.CallData> data = 1;  // <service id, call data>
+}

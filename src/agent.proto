@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package game.agent;
+
+import "types.proto";
+
+service Agent {
+  // reset agent service state
+  rpc ResetService(types.CommonRequest) returns (types.CommonResponse);
+  // query agent service state
+  rpc QueryService(types.CommonRequest) returns (types.ServiceState);
+
+  // get agent configs
+  rpc GetAgentConfig(types.CommonRequest) returns (AgentConfig);
+  // set agent configs
+  rpc SetAgentConfig(AgentConfig) returns (types.CommonResponse);
+
+  // get agent mode
+  rpc GetAgentMode(types.CommonRequest) returns (AgentMode);
+  // set agent mode
+  rpc SetAgentMode(AgentMode) returns (types.CommonResponse);
+
+  // get model weights
+  rpc GetModelWeights(types.CommonRequest) returns (ModelWeights);
+  // set model weights
+  rpc SetModelWeights(ModelWeights) returns (types.CommonResponse);
+
+  // get model buffer
+  rpc GetModelBuffer(types.CommonRequest) returns (ModelBuffer);
+  // set model buffer
+  rpc SetModelBuffer(ModelBuffer) returns (types.CommonResponse);
+
+  // get model status
+  rpc GetModelStatus(types.CommonRequest) returns (ModelStatus);
+  // set model status
+  rpc SetModelStatus(ModelStatus) returns (types.CommonResponse);
+
+  // get action
+  rpc GetAction(stream types.SimState) returns (stream types.SimAction);
+
+  // any rpc call
+  rpc Call(types.CallData) returns (types.CallData);
+}
+
+message AgentConfig {
+  bool training = 1;                
+  string states_inputs_func = 2;    // preprocess states to network inputs, format: python code
+  string outputs_actions_func = 3;  // postprocess network outputs to actions, format: python code
+  string reward_func = 4;           
+  string type = 5;                  // type of rl algorithm
+  string hypers = 6;                // hyper parameters, format: json string of struct
+  string structs = 7;               // network structs, format: json string of array
+  string builder = 8;               // network builder, format: python code
+}
+
+message AgentMode {
+  bool training = 1; 
+}
+
+message ModelWeights {
+  bytes weights = 1;  // weights of model, format: Pickle bytes
+}
+
+message ModelBuffer {
+  bytes buffer = 1;  // buffer of model, format: Pickle bytes
+}
+
+message ModelStatus {
+  string status = 1;  // status of model, format: json string of struct
+}

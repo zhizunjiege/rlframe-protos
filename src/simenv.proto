@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package game.simenv;
+
+import "types.proto";
+
+service Simenv {
+  // reset simenv service state
+  rpc ResetService(types.CommonRequest) returns (types.CommonResponse);
+  // query simenv service state
+  rpc QueryService(types.CommonRequest) returns (types.ServiceState);
+
+  // get simenv configs
+  rpc GetSimenvConfig(types.CommonRequest) returns (SimenvConfig);
+  // set simenv configs
+  rpc SetSimenvConfig(SimenvConfig) returns (types.CommonResponse);
+
+  // control simenv
+  rpc SimControl(SimCmd) returns (types.CommonResponse);
+
+  // get simenv info
+  rpc SimMonitor(types.CommonRequest) returns (SimInfo);
+
+  // any rpc call
+  rpc Call(types.CallData) returns (types.CallData);
+}
+
+message SimenvConfig {
+  string type = 1;  // type of simenv
+  string args = 2;  // args of the simenv type, format: json string of struct
+}
+
+message SimCmd {
+  string type = 1;  // sim command type, predefine: init/start/pause/step/resume/stop/episode/param
+  string params = 2;  // params of the command type, format: json string of struct
+}
+
+message SimInfo {
+  string state = 1;  // sim state, preset: uninited/stopped/running/suspended
+  string data = 2;   // sim data, format: json string of struct
+  string logs = 3;   // sim logs, format: json string of array
+}
