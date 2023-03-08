@@ -49,8 +49,6 @@ message AgentConfig {
   string reward_func = 4;           
   string type = 5;                  // type of rl algorithm
   string hypers = 6;                // hyper parameters, format: json string of struct
-  string structs = 7;               // network structs, format: json string of array
-  string builder = 8;               // network builder, format: python code
 }
 
 message AgentMode {
