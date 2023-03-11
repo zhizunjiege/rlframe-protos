@@ -3,28 +3,20 @@ syntax = "proto3";
 package game.types;
 
 message CommonRequest {}
-message CommonResponse {
-  enum Status {
-    OK = 0;           
-    WARNING = 1;      
-    ERROR = 2;        
-    FATAL_ERROR = 3; 
-  }
-  Status code = 1;  
-  string msg = 2;   
-}
+message CommonResponse {}
 
 message CallData {
-  string str_data = 1;  // string data
-  bytes bin_data = 2;   // binary data
+  string identity = 1;  // identity of call
+  string str_data = 2;  // string data
+  bytes bin_data = 3;   // binary data
 }
 
 message ServiceState {
   enum State {
-    UNINITED = 0; 
-    INITED = 1;    
+    UNINITED = 0;
+    INITED = 1;
   }
-  State state = 1; 
+  State state = 1;
 }
 
 message SimParam {
@@ -35,12 +27,12 @@ message SimParam {
     map<string, SimParam> fields = 1;  // <field name, field value>
   }
   oneof value {
-    double double_value = 1;  
-    int32 int32_value = 2;    
-    bool bool_value = 3;     
-    string string_value = 4; 
-    Array array_value = 5;    
-    Struct struct_value = 6;  
+    double double_value = 1;
+    int32 int32_value = 2;
+    bool bool_value = 3;
+    string string_value = 4;
+    Array array_value = 5;
+    Struct struct_value = 6;
   }
 }
 message SimEntity {
@@ -51,8 +43,8 @@ message SimModel {
 }
 message SimState {
   map<string, SimModel> states = 1;  // <model name, model data>
-  bool terminated = 2;               
-  bool truncated = 3;                
+  bool terminated = 2;
+  bool truncated = 3;
 }
 message SimAction {
   map<string, SimModel> actions = 1;  // <model name, model data>

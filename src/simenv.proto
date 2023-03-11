@@ -27,16 +27,16 @@ service Simenv {
 
 message SimenvConfig {
   string type = 1;  // type of simenv
-  string args = 2;  // args of the simenv type, format: json string of struct
+  string args = 2;  // args of the simenv, format: json string of struct
 }
 
 message SimCmd {
-  string type = 1;  // sim command type, predefine: init/start/pause/step/resume/stop/episode/param
-  string params = 2;  // params of the command type, format: json string of struct
+  string type = 1;    // cmd: init/start/pause/step/resume/stop/episode/param
+  string params = 2;  // params of the cmd, format: json string of struct
 }
 
 message SimInfo {
-  string state = 1;  // sim state, preset: uninited/stopped/running/suspended
+  string state = 1;  // sim state: uninited/stopped/running/suspended
   string data = 2;   // sim data, format: json string of struct
   string logs = 3;   // sim logs, format: json string of array
 }

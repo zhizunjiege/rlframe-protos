@@ -73,7 +73,7 @@ service BFF {
 message ServiceInfo {
   string type = 1;  // type of service, predefine: simenv/agent
   string name = 2;
-  string ip = 3;
+  string host = 3;
   uint32 port = 4;
   string desc = 5;
 }

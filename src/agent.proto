@@ -43,16 +43,16 @@ service Agent {
 }
 
 message AgentConfig {
-  bool training = 1;                
-  string states_inputs_func = 2;    // preprocess states to network inputs, format: python code
-  string outputs_actions_func = 3;  // postprocess network outputs to actions, format: python code
-  string reward_func = 4;           
-  string type = 5;                  // type of rl algorithm
-  string hypers = 6;                // hyper parameters, format: json string of struct
+  bool training = 1;
+  string type = 2;     // type of rl algorithm
+  string hypers = 3;   // hyper params, format: json string of struct
+  string sifunc = 4;   // states to inputs function, format: python code
+  string oafunc = 5;   // outputs to actions funtion, format: python code
+  string rewfunc = 6;  // reward function, format: python code
 }
 
 message AgentMode {
-  bool training = 1; 
+  bool training = 1;
 }
 
 message ModelWeights {
