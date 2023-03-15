@@ -11,7 +11,7 @@ service BFF {
   rpc ResetServer(types.CommonRequest) returns (types.CommonResponse);
 
   // register services
-  rpc RegisterService(ServiceInfoList) returns (ServiceIdList);
+  rpc RegisterService(ServiceInfoMap) returns (types.CommonResponse);
   // unregister services
   rpc UnRegisterService(ServiceIdList) returns (types.CommonResponse);
 
@@ -79,9 +79,6 @@ message ServiceInfo {
 }
 message ServiceIdList {
   repeated string ids = 1;  // id list of services
-}
-message ServiceInfoList {
-  repeated ServiceInfo services = 1;  // info list of services
 }
 message ServiceInfoMap {
   map<string, ServiceInfo> services = 1;  // <service id, service info>
