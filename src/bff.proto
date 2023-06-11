@@ -71,11 +71,11 @@ service BFF {
 }
 
 message ServiceInfo {
-  string type = 1;  // type of service, predefine: simenv/agent
-  string name = 2;
-  string host = 3;
-  uint32 port = 4;
-  string desc = 5;
+  string type = 1;  // type of service: simenv/agent
+  string name = 2;  // name of service, optional
+  string host = 3;  // host of service: ip address or domain name
+  uint32 port = 4;  // port of service: 0 for random port
+  string desc = 5;  // description of service
 }
 message ServiceIdList {
   repeated string ids = 1;  // id list of services

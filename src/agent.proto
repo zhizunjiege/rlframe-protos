@@ -43,7 +43,7 @@ service Agent {
 }
 
 message AgentConfig {
-  bool training = 1;
+  bool training = 1;   // whether agent is used for `train` or `infer`
   string name = 2;     // name of reinforcement learning algorithm
   string hypers = 3;   // hyper params, format: json string of struct
   string sifunc = 4;   // states to inputs function, format: python code
@@ -58,7 +58,7 @@ message AgentConfig {
 }
 
 message AgentMode {
-  bool training = 1;
+  bool training = 1;  // whether agent is in `train` or `infer` mode
 }
 
 message ModelWeights {

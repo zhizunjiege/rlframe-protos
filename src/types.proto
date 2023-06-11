@@ -13,10 +13,10 @@ message CallData {
 
 message ServiceState {
   enum State {
-    UNINITED = 0;
-    INITED = 1;
+    UNINITED = 0;  // service is not inited
+    INITED = 1;    // service is inited
   }
-  State state = 1;
+  State state = 1;  // state of service
 }
 
 message SimParam {
@@ -27,12 +27,12 @@ message SimParam {
     map<string, SimParam> fields = 1;  // <field name, field value>
   }
   oneof value {
-    double vdouble = 1;
-    int32 vint32 = 2;
-    bool vbool = 3;
-    string vstring = 4;
-    Array varray = 5;
-    Struct vstruct = 6;
+    double vdouble = 1;  // double value
+    int32 vint32 = 2;    // int32 value
+    bool vbool = 3;      // bool value
+    string vstring = 4;  // string value
+    Array varray = 5;    // array value
+    Struct vstruct = 6;  // struct value
   }
 }
 message SimEntity {
@@ -43,8 +43,9 @@ message SimModel {
 }
 message SimState {
   map<string, SimModel> states = 1;  // <model name, model data>
-  bool terminated = 2;
-  bool truncated = 3;
+  bool terminated = 2;               // whether `terminal state` is reached
+  bool truncated = 3;  // whether `truncation condition` is satisfied.
+  double reward = 4;   // reward of this state
 }
 message SimAction {
   map<string, SimModel> actions = 1;  // <model name, model data>
