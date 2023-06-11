@@ -26,7 +26,7 @@ service Simenv {
 }
 
 message SimenvConfig {
-  string type = 1;  // type of simenv
+  string name = 1;  // name of simulation platform or enviroment
   string args = 2;  // args of the simenv, format: json string of struct
 }
 

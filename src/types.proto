@@ -6,9 +6,9 @@ message CommonRequest {}
 message CommonResponse {}
 
 message CallData {
-  string identity = 1;  // identity of call
-  string str_data = 2;  // string data
-  bytes bin_data = 3;   // binary data
+  string name = 1;  // name of call
+  string dstr = 2;  // string data
+  bytes dbin = 3;   // binary data
 }
 
 message ServiceState {
@@ -27,12 +27,12 @@ message SimParam {
     map<string, SimParam> fields = 1;  // <field name, field value>
   }
   oneof value {
-    double double_value = 1;
-    int32 int32_value = 2;
-    bool bool_value = 3;
-    string string_value = 4;
-    Array array_value = 5;
-    Struct struct_value = 6;
+    double vdouble = 1;
+    int32 vint32 = 2;
+    bool vbool = 3;
+    string vstring = 4;
+    Array varray = 5;
+    Struct vstruct = 6;
   }
 }
 message SimEntity {

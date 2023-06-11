@@ -44,11 +44,17 @@ service Agent {
 
 message AgentConfig {
   bool training = 1;
-  string type = 2;     // type of rl algorithm
+  string name = 2;     // name of reinforcement learning algorithm
   string hypers = 3;   // hyper params, format: json string of struct
   string sifunc = 4;   // states to inputs function, format: python code
   string oafunc = 5;   // outputs to actions funtion, format: python code
   string rewfunc = 6;  // reward function, format: python code
+
+  message Hook {
+    string name = 1;  // name of hook
+    string args = 2;  // args of hook, format: json string of struct
+  }
+  repeated Hook hooks = 7;  // agent hooks
 }
 
 message AgentMode {
