@@ -28,6 +28,11 @@ service Simenv {
 message SimenvConfig {
   string name = 1;  // name of simulation engine
   string args = 2;  // args of the engine, format: json string of struct
+
+  message Route {
+    repeated string models = 1;  // name list of models
+  }
+  map<string, Route> routes = 3;  // <agent address, route config>
 }
 
 message SimCmd {

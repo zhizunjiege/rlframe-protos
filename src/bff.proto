@@ -20,11 +20,6 @@ service BFF {
   // set services info
   rpc SetServiceInfo(ServiceInfoMap) returns (types.CommonResponse);
 
-  // get route config
-  rpc GetRouteConfig(types.CommonRequest) returns (RouteConfig);
-  // set route config
-  rpc SetRouteConfig(RouteConfig) returns (types.CommonResponse);
-
   // reset simenv/agent services state
   rpc ResetService(ServiceIdList) returns (types.CommonResponse);
   // start simenv/agent services state
@@ -82,16 +77,6 @@ message ServiceIdList {
 }
 message ServiceInfoMap {
   map<string, ServiceInfo> services = 1;  // <service id, service info>
-}
-
-message RouteConfig {
-  message Config {
-    repeated string models = 1;  // name list of models
-  }
-  message Route {
-    map<string, Config> configs = 1;  // <agent id, config>
-  }
-  map<string, Route> routes = 1;  // <simenv id, route>
 }
 
 message ServiceStateMap {
